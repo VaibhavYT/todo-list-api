@@ -31,7 +31,7 @@ export const getTodos = async () => {
   return todos;
 };
 
-export const getPostbyId = async (id: number) => {
+export const getPostbyId = async (id: string) => {
   const { data: todo, error } = await supabase
     .from("todos")
     .select("*")
@@ -42,7 +42,7 @@ export const getPostbyId = async (id: number) => {
     return todo;
 };
 
-export const updateTodobyId = async (id: number, data: Partial<Todo>) => {
+export const updateTodobyId = async (id: string, data: Partial<Todo>) => {
   const { data: todo, error } = await supabase
     .from("todos")
     .update(data)

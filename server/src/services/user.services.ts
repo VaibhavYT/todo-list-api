@@ -18,7 +18,7 @@ export const createUser = async (data: User) => {
   return user;
 };
 
-export const getUser = async () => {
+export const getUsers = async () => {
   const { data: users, error } = await supabase.from("users").select("*");
   if (error) {
     throw error;
@@ -26,7 +26,7 @@ export const getUser = async () => {
   return users;
 };
 
-export const getUserbyId = async (id: number) => {
+export const getUserbyId = async (id: string) => {
   const { data: user, error } = await supabase
     .from("users")
     .select("*")
@@ -36,7 +36,7 @@ export const getUserbyId = async (id: number) => {
   return user;
 };
 
-export const updateUserbyId = async (id: number, data: Partial<User>) => {
+export const updateUserbyId = async (id: string, data: Partial<User>) => {
   const { data: user, error } = await supabase
     .from("users")
     .update(data)
@@ -47,7 +47,7 @@ export const updateUserbyId = async (id: number, data: Partial<User>) => {
   return user;
 };
 
-export const deleteUserbyId = async (id: number) => {
+export const deleteUserbyId = async (id: string) => {
   const { data: user, error } = await supabase
     .from("users")
     .delete()
