@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es6", // Or your desired ECMAScript target
+    "module": "commonjs", // Or your desired module system
+    "outDir": "./dist", // Or your output directory
+    "rootDir": "./src", // Or your source directory
+    "strict": true, // Recommended for new projects
+    "esModuleInterop": true, // <-- THE FIX!
+    "skipLibCheck": true, // Can be useful to speed up compilation
+    "forceConsistentCasingInFileNames": true // Good practice
+    // Add other options as needed
+  },
+  "include": [
+    "src/**/*" // Or your source file patterns
+  ],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
