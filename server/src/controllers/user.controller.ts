@@ -21,8 +21,8 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
-    const user = userService.getUsers();
-    res.status(200).json(user);
+    const users = await userService.getUsers();
+    res.status(200).json(users);
   } catch (error: unknown) {
     // Handle errors (e.g., validation errors from service)
     console.error("Error getting users:", error); // Also log the specific error on the server
@@ -72,5 +72,18 @@ export const deleteUserbyId = async (req: Request, res: Response) => {
     const errorMessage =
       error instanceof Error ? error.message : "Failed to delete user";
     res.status(400).json({ message: errorMessage });
+  }
+};
+
+export const loginUser = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+    const result = await userService.loginUser({ email, password });
+    res.status(200).json(result);
+  } catch (error: unknown) {
+    console.error("Error logging in user:", error);
+    const errorMessage =
+      error instanceof Error ? error.message : "Failed to login user";
+    res.status(401).json({ message: errorMessage });
   }
 };
