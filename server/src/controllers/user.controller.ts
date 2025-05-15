@@ -36,7 +36,7 @@ export const getUserbyId = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
     const user = userService.getUserbyId(id);
-    res.send(200).json(user);
+    res.status(200).json(user);
   } catch (error: unknown) {
     // Handle errors (e.g., validation errors from service)
     console.error("Error getting user:", error); // Also log the specific error on the server
