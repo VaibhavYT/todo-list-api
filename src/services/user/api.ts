@@ -9,6 +9,19 @@ export interface UserLogin {
     email: string;
     password: string;
     }
+
+
+// Interface for login response data
+export interface LoginResponse {
+    token: string;
+    user: {
+        id: string;
+        email: string;
+        name?: string;
+        // Add other user properties if needed
+    };
+}
+
 const apiClient: AxiosInstance = axios.create({
     baseURL: 'http://localhost:5000/api/user',
     headers: {
@@ -28,9 +41,12 @@ export const createUser = async (userData: UserSignup): Promise<UserSignup> => {
         throw error;
     }
 }
-export const loginUser = async (userData: UserLogin): Promise<UserLogin> => {
+export const loginUser = async (userData: UserLogin): Promise<LoginResponse> => {
     try {
-        const response: AxiosResponse<UserLogin > = await apiClient.post('/login', userData);
+        const response: AxiosResponse<LoginResponse> = await apiClient.post(
+          "/login",
+          userData
+        );
         return response.data;
     } catch (error) {
         console.error('Error logging in user:', error);

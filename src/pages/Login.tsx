@@ -18,7 +18,7 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    setLoading(false);
+    setLoading(true);
     setError(null);
     setSuccessMessage(null);
 
@@ -30,42 +30,49 @@ export const Login = () => {
 
       const response = await loginUser(userDataToSend);
 
-       // Store token and user data
+      // Store token and user data
       if (response.token) {
-        login(response.token, response.user)
-        setSuccessMessage('Logged in successfully')
-        
+        login(response.token, response.user);
+        setSuccessMessage("Logged in successfully");
+        reset();
+        console.log("User logged in successfully");
+
         // Redirect after successful login
         setTimeout(() => {
-          navigate('/dashboard') // Or any protected route
-        }, 1000) // Short delay to show success message
+          navigate("/dashboard"); // Or any protected route
+        }, 1000); // Short delay to show success message
       } else {
-        setError('Invalid login response')
+        setError("Invalid login response");
       }
-      console.log(login, "logged in");
-      setSuccessMessage("Logged in");
-      reset();
     } catch (error) {
-      console.log("failed to loggin ", error);
+      console.log("Failed to login: ", error);
+      setError("Login failed. Please check your credentials and try again.");
     } finally {
       setLoading(false);
     }
   };
   return (
     <div>
-      <h2>Create New Blog</h2>
-      {error && <p style={{ color: "red" }}>Error:{error}</p>}
+      <h2>Login</h2>
+      {error && <p style={{ color: "red" }}>Error: {error}</p>}
       {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="email">Email</label>
-          <input {...register("email")} />
+          <input type="email" id="email" {...register("email")} required />
         </div>
         <div>
           <label htmlFor="password">Password</label>
-          <input {...register("password")} />
+          <input
+            type="password"
+            id="password"
+            {...register("password")}
+            required
+          />
         </div>
-        <button type="submit">{isLoading ? "Logging in..." : "Log In"}</button>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? "Logging in..." : "Log In"}
+        </button>
       </form>
     </div>
   );
