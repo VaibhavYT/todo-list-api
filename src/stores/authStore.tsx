@@ -3,9 +3,9 @@ import { persist } from "zustand/middleware";
 
 type AuthState = {
   token: string | null;
-  user: any | null;
+  user: unknown | null;
   isAuthenticated: boolean;
-  login: (token: string, user: any) => void;
+  login: (token: string, user: unknown) => void;
   logout: () => void;
 };
 

@@ -24,11 +24,11 @@ const Signup = () => {
         password: data.password,
       };
       const newUser = await createUser(userDatatosend);
-      console.log("Blog Created:", newUser);
+      console.log("User has been created:", newUser);
       setSuccessMessage("User has been created");
       reset();
     } catch (error) {
-      console.log("Failed to Create Blog", error);
+      console.log("Failed to create user", error);
     } finally {
       setLoading(false);
     }
